@@ -6,7 +6,7 @@
 
     <h2>Listado de artistas</h2>
 
-    <ul class="listWithImage listWithImage-options row">
+    <ul class="listWithImage animation listWithImage-options row">
         <li *ngFor="let artista of listaArtistas; let i = index;" class="col-4 px-2">
             <div class="option-list" [class.option-list-hover]="mouseOvered" (mouseout)="mouseOvered=false" (mouseover)="mouseOvered=true"><a href="#">Ver canciones</a></div>
             <a href="#" (click)="clickArtista($event, i)">

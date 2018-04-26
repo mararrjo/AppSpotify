@@ -6,7 +6,7 @@
     <h2 *ngIf="listaAlbumes.length > 0">Listado de álbumes</h2>
     <h2 *ngIf="listaAlbumes.length <= 0">Busca algún álbum para escuchar sus canciones!</h2>
 
-    <ul class="listWithImage row">
+    <ul class="listWithImage animation row">
         <li *ngFor="let album of listaAlbumes; let i = index;" class="col-4 px-2">
             <a href="#" (click)="clickAlbum($event, i)">
                 <div class="img-album" [ngStyle]="{'background-image': 'url('+album.images[1].url+')'}"></div>
