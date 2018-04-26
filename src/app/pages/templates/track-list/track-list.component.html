@@ -1,0 +1,11 @@
+<ul class="listadoCanciones row animated" [ngClass]="{'slideInRight': listaCanciones.length > 0, 'slideOutRight': listaCanciones.length <= 0}">
+    <div class="ico-close-canciones" (click)="closeCanciones()">X</div>
+    <li *ngFor="let cancion of listaCanciones; let i = index;" class="col-12">
+        <a href="#" [ngClass]="{'active': currentTrack?.id === cancion.id}">
+            <span class="title-name" (click)="clickCancion($event, i)"><span *ngIf="showAlbum">Album: <b>{{ cancion.album.name }}</b><br></span>{{ cancion.track_number }}: {{ cancion.name }} - {{msToTime(cancion.duration_ms)}} </span>
+            <span class="ico-spotify-play" (click)="playPause(i)"> <i class="fa" [ngClass]="{'fa-play':((currentTrack?.id === cancion.id && state?.paused) || currentTrack?.id !== cancion.id), 'fa-pause': (currentTrack?.id === cancion.id && !state?.paused)}"></i></span>
+            <!-- <span class="ico-spotify-link" (click)="irCancionSpotify(i)"></span> -->
+            <!-- <iframe *ngIf="showCancion[i]" class="iframeSpotify" [src]="cancion.uri" frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe> -->
+        </a>
+    </li>
+</ul>

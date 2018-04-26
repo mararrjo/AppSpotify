@@ -1,0 +1,25 @@
+<div class="sidebar">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="m-4">Spotify</h1>
+            <ul class="menu">
+                <li>
+                    <a routerLink="/albums">Albumes</a>
+                </li>
+                <li>
+                    <a routerLink="/artists">Artistas</a>
+                </li>
+                <li>
+                    <a href="#">Canciones</a>
+                </li>
+                <li>
+                    <a href="#">Playlists</a>
+                </li>
+            </ul>
+            <h4 class="m-4">Bienvenido {{ user?._display_name }}</h4>
+            <div class="m-4">
+                <input type="button" class="btn btn-info" (click)="login()" value="Login">
+            </div>
+        </div>
+    </div>
+</div>

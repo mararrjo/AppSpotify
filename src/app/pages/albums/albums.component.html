@@ -1,0 +1,21 @@
+<app-sidebar></app-sidebar>
+
+<app-search-bar [type]="album" (search)="searchAlbum($event)"></app-search-bar>
+
+<div class="content container pt-4 animation" [ngClass]="{'listaCanciones-opened': listaCanciones.length > 0}">
+    <h2>Listado de álbumes</h2>
+
+    <ul class="listWithImage row">
+        <li *ngFor="let album of listaAlbumes; let i = index;" class="col-4 px-2">
+            <a href="#" (click)="clickAlbum($event, i)">
+                <div class="img-album" [ngStyle]="{'background-image': 'url('+album.images[1].url+')'}"></div>
+                <span class="title-name">{{ album.name }}</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<app-track-list [items]="listaCanciones" (closed)="listaCanciones = []"></app-track-list>
+
+<app-player></app-player>

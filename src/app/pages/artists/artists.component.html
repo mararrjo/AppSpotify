@@ -1,0 +1,23 @@
+<app-sidebar></app-sidebar>
+
+<app-search-bar [type]="artist" (search)="searchArtists($event)"></app-search-bar>
+
+<div class="content container pt-4 animation" [ngClass]="{'listaCanciones-opened': listaCanciones.length > 0}">
+
+    <h2>Listado de artistas</h2>
+
+    <ul class="listWithImage listWithImage-options row">
+        <li *ngFor="let artista of listaArtistas; let i = index;" class="col-4 px-2">
+            <div class="option-list" [class.option-list-hover]="mouseOvered" (mouseout)="mouseOvered=false" (mouseover)="mouseOvered=true"><a href="#">Ver canciones</a></div>
+            <a href="#" (click)="clickArtista($event, i)">
+                <div class="img-album" [ngStyle]="{'background-image': 'url('+(artista.images.length > 0 ? artista.images[1].url : 'http://i.imgur.com/nszu54A.jpg')+')'}"></div>
+                <span class="title-name">{{ artista.name }}</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<app-track-list [items]="listaCanciones" [showAlbum]="true"></app-track-list>
+
+<app-player></app-player>
