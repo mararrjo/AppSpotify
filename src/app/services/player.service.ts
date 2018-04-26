@@ -125,7 +125,6 @@ export class PlayerService {
         headers = headers.append("Content-Type", "application/json");
         headers = headers.append("Authorization", "Bearer " + this.token);
 
-        
         return this.http.put(`https://api.spotify.com/v1/me/player/play?device_id=${this.device_id}`, JSON.stringify({uris: [spotify_uri]}), {
             headers: headers,
             observe: "response"
