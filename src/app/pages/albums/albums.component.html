@@ -3,7 +3,8 @@
 <app-search-bar [type]="album" (search)="searchAlbum($event)"></app-search-bar>
 
 <div class="content container pt-4 animation" [ngClass]="{'listaCanciones-opened': listaCanciones.length > 0}">
-    <h2>Listado de álbumes</h2>
+    <h2 *ngIf="listaAlbumes.length > 0">Listado de álbumes</h2>
+    <h2 *ngIf="listaAlbumes.length <= 0">Busca algún álbum para escuchar sus canciones!</h2>
 
     <ul class="listWithImage row">
         <li *ngFor="let album of listaAlbumes; let i = index;" class="col-4 px-2">

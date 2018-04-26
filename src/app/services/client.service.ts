@@ -4,7 +4,7 @@ import Client from "spotify-sdk/src/Client.js";
 import UserHandler from "spotify-sdk/src/handlers/UserHandler.js";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromPromise';
-import { Subject } from "rxjs";
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class ClientService {
@@ -57,6 +57,19 @@ export class ClientService {
                 return Observable.fromPromise(userHandler.me());
             }
         }
+    }
+
+    public login(): void {
+        this.client.login().then((url) => {
+            window.location.href = url;
+        });
+    }
+
+    public logout(): void {
+        sessionStorage.removeItem("token");
+        this.client.token = null;
+        this.client._token = null;
+        window.location.href = "/";
     }
 
 }

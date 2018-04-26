@@ -19,6 +19,9 @@ export class TrackListComponent implements OnInit, OnChanges {
     @Input()
     public showAlbum: boolean;
 
+    @Input()
+    public withSearchBar: boolean;
+
     @Output()
     public closed: EventEmitter<boolean>;
 
@@ -30,6 +33,7 @@ export class TrackListComponent implements OnInit, OnChanges {
         this.listaCanciones = [];
         this.played = false;
         this.closed = new EventEmitter<boolean>();
+        this.withSearchBar = true;
     }
 
     public ngOnInit(): void {

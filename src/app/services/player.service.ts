@@ -20,30 +20,28 @@ export class PlayerService {
     private stateMusicSnapsot: any;
     private $stateMusic: Subject<any>;
     private token: string;
+    private $isConnect: Subject<boolean>;
+    private $autenticated: Subject<boolean>;
 
     constructor(private http: HttpClient) {
 
         this.$stateMusic = new Subject<any>();
         this.$current_track = new Subject<Tracks>();
+        this.$isConnect = new Subject<boolean>();
+        this.$autenticated = new Subject<boolean>();
 
         this.token = sessionStorage.token;
 
         setTimeout(() => {
             if (!!Spotify) {
 
-                console.log("Init Player service");
-
-                // this.player = new Spotify.Player({
-                //     name: 'Web Playback SDK Quick Start Player',
-                //     getOAuthToken: cb => { cb(sessionStorage.token); }
-                // });
                 this.player = new Spotify.Player({
                     name: 'Web Playback SDK Quick Start Player',
                     getOAuthToken: cb => { cb(this.token); }
                 });
                 // Error handling
                 this.player.addListener('initialization_error', ({ message }) => { console.error(message); });
-                this.player.addListener('authentication_error', ({ message }) => { console.error(message); });
+                this.player.addListener('authentication_error', ({ message }) => { console.error(message); this.$autenticated.next(false); });
                 this.player.addListener('account_error', ({ message }) => { console.error(message); });
                 this.player.addListener('playback_error', ({ message }) => { console.error(message); });
 
@@ -59,6 +57,8 @@ export class PlayerService {
                 this.player.addListener('ready', ({ device_id }) => {
                     this.device_id = device_id;
                     console.log('Ready with Device ID', device_id);
+                    this.$isConnect.next(true);
+                    this.$autenticated.next(true);
                 });
 
                 // Connect to the player!
@@ -66,6 +66,14 @@ export class PlayerService {
             }
         }, 3000);
 
+    }
+
+    public isConnect(): Observable<boolean> {
+        return this.$isConnect.asObservable();
+    }
+
+    public isAutenticated(): Observable<boolean> {
+        return this.$autenticated.asObservable();
     }
 
     public getState(): Observable<any> {
@@ -90,7 +98,7 @@ export class PlayerService {
         }).map(res => res.body);
     }
 
-    public play (idCancion: string): Observable<any> {
+    public play (idCancion: string = ""): Observable<any> {
 
         return Observable.fromPromise(this.player.resume());
 
@@ -109,7 +117,6 @@ export class PlayerService {
 
     public playToggle(): void {
         this.player.togglePlay().then(() => {
-            console.log("play toggle");
         });
     }
 
@@ -133,15 +140,21 @@ export class PlayerService {
 
     public next (): Observable<any> {
 
-        let headers = new HttpHeaders();
-        headers = headers.append("Content-Type", "application/json");
-        headers = headers.append("Authorization", "Bearer " + this.token);
+        return Observable.fromPromise(this.player.nextTrack());
 
-        return this.http.post(`https://api.spotify.com/v1/me/player/next?device_id=${this.device_id}`, null, {
-            headers: headers,
-            observe: "response"
-        });
+        // let headers = new HttpHeaders();
+        // headers = headers.append("Content-Type", "application/json");
+        // headers = headers.append("Authorization", "Bearer " + this.token);
 
+        // return this.http.post(`https://api.spotify.com/v1/me/player/next?device_id=${this.device_id}`, null, {
+        //     headers: headers,
+        //     observe: "response"
+        // });
+
+    }
+
+    public prev (): Observable<any> {
+        return Observable.fromPromise(this.player.previousTrack());
     }
 
 

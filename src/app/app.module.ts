@@ -15,6 +15,7 @@ import { ArtistsComponent } from './pages/artists/artists.component';
 import { TrackListComponent } from './pages/templates/track-list/track-list.component';
 import { PlayerService } from './services/player.service';
 import { PlayerComponent } from './pages/templates/player/player.component';
+import { PlaylistComponent } from './pages/playlist/playlist.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,10 @@ const routes: Routes = [
     {
         path: "artists",
         component: ArtistsComponent
+    },
+    {
+        path: "playlists",
+        component: PlaylistComponent
     }
 ];
 
@@ -40,6 +45,7 @@ const routes: Routes = [
         AppComponent,
         AlbumsComponent,
         ArtistsComponent,
+        PlaylistComponent,
         LoginComponent,
         SidebarComponent,
         SearchBarComponent,

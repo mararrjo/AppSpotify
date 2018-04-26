@@ -5,6 +5,7 @@ import { PlayerService } from "../../../services/player.service";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/takeUntil";
+import "rxjs/add/observable/timer";
 
 @Component({
     selector: "app-player",
@@ -32,7 +33,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.playerService.getCurrentTrack().subscribe((track: Tracks) => {
             this.currentTrack = track;
-            console.log(this.currentTrack);
         });
         this.playerService.getState().subscribe(state => {
             this.state = state;
@@ -47,7 +47,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
             } else {
                 this.stopProgressBar();
             }
-            console.log(this.state);
         });
     }
 
@@ -73,13 +72,24 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }
 
     public nextCurrentTrack(): void {
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
+        // if (this.interval) {
+        //     clearInterval(this.interval);
+        // }
         if (this.state) {
             if (this.state.track_window.next_tracks.length > 0) {
                 const nextTrack = this.state.track_window.next_tracks[0];
                 this.playerService.next().subscribe();
+            }
+        }
+    }
+
+    public prevCurrentTrack(): void {
+        if (this.state) {
+            if (this.state.track_window.previous_tracks.length > 0) {
+                const prevTrack = this.state.track_window.previous_tracks[0];
+                this.playerService.prev().subscribe();
+            } else {
+                this.playerService.play().subscribe();
             }
         }
     }
@@ -94,15 +104,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
                     this.progress += 1000;
                 } else {
                     this.stopProgressBar();
+                    this.nextCurrentTrack();
                 }
-                console.log("timer:", t, this.progress);
             });
-        console.log("Init progress bar", this.interval);
     }
 
     private stopProgressBar(): void {
         if (this.interval) {
-            console.log("Stop progress bar", this.interval);
             this.ngUnsubscribe.next();
             this.ngUnsubscribe.complete();
             this.interval.unsubscribe();

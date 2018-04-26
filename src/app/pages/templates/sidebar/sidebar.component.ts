@@ -20,9 +20,11 @@ export class SidebarComponent implements OnInit {
     }
 
     public login(): void {
-        this.clientService.client.login().then((url) => {
-            window.location.href = url;
-        });
+        this.clientService.login();
+    }
+
+    public logout(): void {
+        this.clientService.logout();
     }
 
 }

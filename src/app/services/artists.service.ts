@@ -28,7 +28,6 @@ export class ArtistsService {
         };
         const track = new TrackHandler();
         track.search("Animales", {limit: 5}).then((trackCollection) => {
-            console.log(trackCollection);
         });
     }
 
@@ -39,7 +38,6 @@ export class ArtistsService {
         // &redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
         const url = `https://accounts.spotify.com/authorize?client_id=${client_id}&scope=${encodeURIComponent(scopes.join(' '))}&response_type=token&redirect_uri=http://localhost:4200/login`;
         window.addEventListener("message", function(event) {
-            console.log("Evento message", event);
             const hash = JSON.parse(event.data);
         }, false);
         const w = window.open(url, "Spotify", 'menubar=no,location=no,resizable=no,scrollbars=no,status=no');

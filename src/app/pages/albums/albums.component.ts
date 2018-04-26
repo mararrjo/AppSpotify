@@ -76,7 +76,6 @@ export class AlbumsComponent implements OnInit {
         albumHandler.get(idAlbum).then((albumEntity) => {
             this.listaCanciones = albumEntity.tracks.items;
             this.playerService.playList(this.listaCanciones.map(c => c.id)).subscribe(res => {
-                console.log(res);
             });
         });
 

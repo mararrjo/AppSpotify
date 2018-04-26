@@ -13,12 +13,13 @@
                     <a href="#">Canciones</a>
                 </li>
                 <li>
-                    <a href="#">Playlists</a>
+                    <a routerLink="/playlists">Playlists</a>
                 </li>
             </ul>
-            <h4 class="m-4">Bienvenido {{ user?._display_name }}</h4>
+            <!-- <h4 class="m-4">Bienvenido {{ user?._display_name }}</h4> -->
             <div class="m-4">
                 <input type="button" class="btn btn-info" (click)="login()" value="Login">
+                <input type="button" class="btn btn-danger" (click)="logout()" value="Logout">
             </div>
         </div>
     </div>

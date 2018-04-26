@@ -1,8 +1,12 @@
 <div class="player">
-    <h3 class="title-track">
-        Canción que se está escuchando: {{ currentTrack?.name }}
+    <h3 *ngIf="currentTrack" class="title-track">
+        Escuchando: {{ currentTrack?.name }}
+    </h3>
+    <h3 *ngIf="!currentTrack" class="title-track">
+        No hay ninguna canción seleccionada.
     </h3>
     <div class="buttons-player">
+        <button class="button-player button-player-prev" [disabled]="!currentTrack" (click)="prevCurrentTrack()"><i class="fas fa-step-backward"></i></button>
         <button class="button-player button-player-play" [disabled]="!currentTrack" [ngClass]="{ 'active' : currentTrack && !state?.paused }" (click)="playCurrentTrack()"><i class="fas fa-play"></i></button>
         <button class="button-player button-player-pause" [disabled]="!currentTrack" [ngClass]="{ 'active' : currentTrack && state?.paused }" (click)="pauseCurrentTrack()"><i class="fas fa-pause"></i></button>
         <button class="button-player button-player-next" [disabled]="!currentTrack" (click)="nextCurrentTrack()"><i class="fas fa-step-forward"></i></button>

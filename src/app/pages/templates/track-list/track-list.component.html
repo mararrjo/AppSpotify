@@ -1,4 +1,4 @@
-<ul class="listadoCanciones row animated" [ngClass]="{'slideInRight': listaCanciones.length > 0, 'slideOutRight': listaCanciones.length <= 0}">
+<ul class="listadoCanciones row animated" [ngClass]="{'slideInRight': listaCanciones.length > 0, 'slideOutRight': listaCanciones.length <= 0, 'listadoCanciones-no-search': !withSearchBar}">
     <div class="ico-close-canciones" (click)="closeCanciones()">X</div>
     <li *ngFor="let cancion of listaCanciones; let i = index;" class="col-12">
         <a href="#" [ngClass]="{'active': currentTrack?.id === cancion.id}">

@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div class="loadingApp animated" [ngClass]="{'fadeOut' : (isReady || !isAutenticated)}" [ngStyle]="{'z-index': (isReady || !isAutenticated) ? '-100' : '100' }">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2000px-Spotify_logo_without_text.svg.png" class="title-loadingApp">
+</div>
+
+<div *ngIf="!isAutenticated" class="content-login">
+    <h3>Por favor, autentícate tio!</h3><br>
+    <input type="button" class="btn btn-info" (click)="login()" value="Login">
+</div>
+
+<div [ngClass]="{'show': isReady && isAutenticated, 'hide': !isReady || !isAutenticated}" >
+    <router-outlet></router-outlet>
+</div>
